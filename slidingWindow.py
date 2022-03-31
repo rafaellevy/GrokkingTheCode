@@ -1,5 +1,9 @@
 
 
+from calendar import c
+from unittest import result
+
+
 def findAverages(array, k):
     # result array holds the averages / k
     result = []
@@ -363,3 +367,39 @@ print(permutationString2("odicf","dc"))
 print(permutationString2("bcdxabcdy","bcdyabcdx"))
 print(permutationString2("aaacb","abc"))
 
+def findAnagrams(str1,pattern):
+    frequency = {}
+    windowStart = 0
+    matched = 0
+    result = []
+
+    for char in pattern:
+        if char not in frequency:
+            frequency[char] = 0
+        frequency[char] += 1
+
+    for windowEnd in range(len(str1)):
+        rightEnd = str1[windowEnd]
+
+        if rightEnd in frequency:
+            frequency[rightEnd] -= 1
+            if frequency[rightEnd] == 0:
+                matched += 1
+
+        if matched == len(frequency):
+            result.append(windowStart)
+
+        if windowEnd >= len(pattern) - 1:
+            leftEnd = str1[windowStart]
+            if leftEnd in frequency:
+                if frequency[leftEnd] == 0:
+                    matched -= 1
+                frequency[leftEnd] += 1
+            windowStart += 1
+
+    return result
+
+print("find anagrams")
+print(findAnagrams("ppqp","pq"))
+print(findAnagrams("abbcabc","abc"))
+print(findAnagrams("apapapa","apa"))
