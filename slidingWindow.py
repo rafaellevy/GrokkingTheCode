@@ -1,6 +1,7 @@
 
 
 from calendar import c
+from turtle import right
 from unittest import result
 
 
@@ -403,3 +404,68 @@ print("find anagrams")
 print(findAnagrams("ppqp","pq"))
 print(findAnagrams("abbcabc","abc"))
 print(findAnagrams("apapapa","apa"))
+
+
+# Smallest Window containing Substring
+
+def smallestWindowContainingSub(s1, subS):
+    lettersFrequency = {}
+    smallest = s1
+    current = ""
+    windowStart = 0
+    matched = 0
+
+    for char in subS:
+        if char not in lettersFrequency:
+            lettersFrequency[char] = 0
+        lettersFrequency[char] += 1
+
+    for windowEnd in range(len(s1)):
+        rightSide = s1[windowEnd]
+
+        if rightSide in lettersFrequency:
+            lettersFrequency[rightSide] -= 1
+            if lettersFrequency[rightSide] == 0:
+                matched += 1
+            
+
+        while matched == len(lettersFrequency):
+            current = s1[windowStart:windowEnd + 1]
+            if len(current) < len(smallest):
+                smallest = current
+            leftSide = s1[windowStart]
+            if leftSide in lettersFrequency:
+                if lettersFrequency[leftSide] == 0:
+                    matched -= 1
+                lettersFrequency[leftSide] += 1
+            windowStart += 1
+                
+
+    if len(current) == 0:
+        return ""
+    else:
+        return smallest
+
+print("smallest substring containing pattern")
+print(smallestWindowContainingSub("aabdec", "abc"))
+print(smallestWindowContainingSub("aabdec", "abac"))
+print(smallestWindowContainingSub("abdbca", "abc"))
+print(smallestWindowContainingSub("adcad", "abc"))    
+
+
+            
+        
+
+
+    
+
+    
+
+        
+
+
+
+
+
+
+
