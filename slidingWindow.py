@@ -453,8 +453,53 @@ print(smallestWindowContainingSub("abdbca", "abc"))
 print(smallestWindowContainingSub("adcad", "abc"))    
 
 
+# Words Concatenation
+
+def wordConcatenation(str2,words):
+    currentStr = ""
+    windowStart = 0
+    outputArr = []
+    wordsArr = []
+    wordsHash = {}
+    wordSet = set()
+    wordSize = len(words[0])
+
+    #create a dictionary from words
+    for word in words:
+        wordsHash[word] = word
+    
+    for i in range(len(str2)):
+        currentStr += str2[i]
+        if len(currentStr) == wordSize:
+            wordsArr.append(currentStr)
+            currentStr = ""
+
+    for word in wordsArr:
+        if word in wordsHash:
+            wordSet.add(word)
+        if len(wordSet) == len(wordsHash):
+            outputArr.append(windowStart)
+            wordSet.remove(wordsArr[windowStart])
+            windowStart += 1
+    return outputArr
             
+    
+            
+            
+
+
+
+
+
+print(wordConcatenation("catfoxcatfox",["cat", "fox"]))
+    
+
+
+    
         
+
+    
+
 
 
     
