@@ -456,43 +456,47 @@ print(smallestWindowContainingSub("adcad", "abc"))
 # Words Concatenation
 
 def wordConcatenation(str2,words):
-    currentStr = ""
+    rightSide = ""
     windowStart = 0
     outputArr = []
-    wordsArr = []
     wordsHash = {}
-    wordSet = set()
+    matched = 0
+    #patternSize = len(words[0]) * len(words)
     wordSize = len(words[0])
 
     #create a dictionary from words
     for word in words:
-        wordsHash[word] = word
+        if word not in wordsHash:
+            wordsHash[word] = 0
+        wordsHash[word] += 1
     
-    for i in range(len(str2)):
+    '''for i in range(len(str2)):
         currentStr += str2[i]
         if len(currentStr) == wordSize:
             wordsArr.append(currentStr)
-            currentStr = ""
+            currentStr = "" '''
 
-    for word in wordsArr:
-        if word in wordsHash:
-            wordSet.add(word)
-        if len(wordSet) == len(wordsHash):
+    for windowEnd in range(len(str2)):
+        rightSide += str2[windowEnd]
+        if len(rightSide) == wordSize :
+            if rightSide in wordsHash:
+                wordsHash[rightSide] -= 1
+            if wordsHash[rightSide] == 0:
+                matched += 1
+            if wordsHash[rightSide] < 0:
+                windowStart = windowEnd - wordSize + 1
+            rightSide = ""
+        if len(wordsHash) == matched:
+            wordsHash[str2[windowStart:windowStart + wordSize]] += 1
+            matched -= 1 
             outputArr.append(windowStart)
-            wordSet.remove(wordsArr[windowStart])
-            windowStart += 1
+            windowStart = windowEnd - wordSize + 1
+        
     return outputArr
-            
-    
-            
-            
-
-
-
-
-
-print(wordConcatenation("catfoxcatfox",["cat", "fox"]))
-    
+        
+print("Words Concatenation")      
+print(wordConcatenation("catfoxcat",["cat", "fox"]))
+print(wordConcatenation("catcatfoxfox",["cat", "fox"]))
 
 
     
