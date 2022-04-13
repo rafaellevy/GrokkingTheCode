@@ -470,12 +470,6 @@ def wordConcatenation(str2,words):
             wordsHash[word] = 0
         wordsHash[word] += 1
     
-    '''for i in range(len(str2)):
-        currentStr += str2[i]
-        if len(currentStr) == wordSize:
-            wordsArr.append(currentStr)
-            currentStr = "" '''
-
     for windowEnd in range(len(str2)):
         rightSide += str2[windowEnd]
         if len(rightSide) == wordSize :
