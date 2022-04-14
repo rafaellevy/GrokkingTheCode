@@ -31,3 +31,19 @@ print(removeDuplicates([2, 3, 3, 3, 6, 9, 9]))
 print(removeDuplicates([2, 2, 2, 11]))
         
 
+def squaresOfAllTheNumbers(arr):
+    leftP = 0
+    rightP = len(arr) - 1
+    output = []
+
+
+    while leftP <= rightP:
+        if arr[rightP]**2 >= arr[leftP]**2:
+            output.append(arr[rightP]**2)
+            rightP -= 1
+        else:
+            output.append(arr[leftP]**2)
+            leftP += 1
+    return list(reversed(output))
+
+print(squaresOfAllTheNumbers([-2, -1, 0, 2, 3]))
