@@ -47,3 +47,5 @@ def squaresOfAllTheNumbers(arr):
     return list(reversed(output))
 
 print(squaresOfAllTheNumbers([-2, -1, 0, 2, 3]))
+
+print(squaresOfAllTheNumbers([-3, -1, 0, 1, 2]))
