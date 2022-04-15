@@ -49,3 +49,60 @@ def squaresOfAllTheNumbers(arr):
 print(squaresOfAllTheNumbers([-2, -1, 0, 2, 3]))
 
 print(squaresOfAllTheNumbers([-3, -1, 0, 1, 2]))
+
+
+
+def tripletSumToZero(arr):
+    arr.sort() 
+    output = []
+
+    
+    for i in range(len(arr) -2):
+        leftP = i + 1
+        rightP = len(arr) - 1
+
+        while leftP < rightP:
+
+            if arr[i] + arr[leftP] + arr[rightP] == 0:
+                output.append([arr[i],arr[leftP],arr[rightP]])
+                leftP += 1
+                rightP -= 1
+
+            if arr[i] + arr[leftP] + arr[rightP] < 0:
+                leftP += 1
+
+            if arr[i] + arr[leftP] + arr[rightP] > 0:
+                rightP -= 1
+
+    return output
+
+print(tripletSumToZero([-3, 0, 1, 2, -1, 1, -2]))
+print(tripletSumToZero([-5, 2, -1, -2, 3]))
+
+
+def tripletSumCloseToTarget(arr, target):
+    arr.sort() 
+    currentSum = 0
+    closestSum = float("inf")
+
+    
+    for i in range(len(arr) -2):
+        leftP = i + 1
+        rightP = len(arr) - 1
+        currentSum = arr[i] + arr[leftP] + arr[rightP]
+        # 
+
+        while leftP < rightP:
+
+            if arr[i] + arr[leftP] + arr[rightP] == 0:
+                output.append([arr[i],arr[leftP],arr[rightP]])
+                leftP += 1
+                rightP -= 1
+
+            if arr[i] + arr[leftP] + arr[rightP] < 0:
+                leftP += 1
+
+            if arr[i] + arr[leftP] + arr[rightP] > 0:
+                rightP -= 1
+
+    return output
