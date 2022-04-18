@@ -1,3 +1,6 @@
+from turtle import left
+
+
 def findTwoIndices(arr, target):
     leftP = 0
     rightP = len(arr) - 1
@@ -81,28 +84,44 @@ print(tripletSumToZero([-5, 2, -1, -2, 3]))
 
 
 def tripletSumCloseToTarget(arr, target):
-    arr.sort() 
-    currentSum = 0
+    arr.sort()
+    ''' we don;t need to create closest sum in here 
+    since line 101/103 will create the closest sum, always because any 
+    difference will be smaller than infinity'''
     closestSum = float("inf")
+    closestDifference = float("inf")
 
-    
     for i in range(len(arr) -2):
         leftP = i + 1
         rightP = len(arr) - 1
-        currentSum = arr[i] + arr[leftP] + arr[rightP]
-        # 
-
+        
         while leftP < rightP:
+            currentSum = arr[i] + arr[leftP] + arr[rightP]
+            currentDifference = abs(currentSum - target)
+            if currentDifference < closestDifference:
+                # created closestSum
+                closestSum = currentSum
+                closestDifference = currentDifference
+            elif currentDifference == closestDifference:
+                closestSum = min(currentSum, closestSum)
 
-            if arr[i] + arr[leftP] + arr[rightP] == 0:
-                output.append([arr[i],arr[leftP],arr[rightP]])
+            if currentSum > target:
+                rightP -= 1
+            elif currentSum < target:
+                leftP += 1
+            else:
                 leftP += 1
                 rightP -= 1
 
-            if arr[i] + arr[leftP] + arr[rightP] < 0:
-                leftP += 1
+    return closestSum
 
-            if arr[i] + arr[leftP] + arr[rightP] > 0:
-                rightP -= 1
+print("closest sum")
+print(tripletSumCloseToTarget([-2, 0, 1, 2], 2))
+print(tripletSumCloseToTarget([-3, -1, 1, 2], 1))
+print(tripletSumCloseToTarget([1, 0, 1, 1], 100))
 
-    return output
+    
+
+
+
+        
