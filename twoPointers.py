@@ -122,6 +122,35 @@ print(tripletSumCloseToTarget([1, 0, 1, 1], 100))
 
     
 
+# triplets with sum smaller than target
 
 
-        
+
+def tripletSumSmallerThanTarget(arr, target):
+    count = 0
+    arr.sort()
+
+    for i in range(len(arr) - 2):
+        newTarget = target - arr[i]
+        count += findPair(arr, newTarget, i )
+
+    return count
+           
+
+def findPair(arr, target, idx):
+    count = 0
+    leftP = idx + 1
+    rightP = len(arr) - 1
+
+    while leftP < rightP:
+        if arr[leftP] + arr[rightP] < target:
+            count += rightP - leftP
+            leftP += 1
+        else:
+            rightP -= 1
+    
+    return count
+
+print("triplets smaller than target")
+print(tripletSumSmallerThanTarget([-1, 0, 2, 3], 3))
+print(tripletSumSmallerThanTarget([-1, 4, 2, 1, 3], 5))
