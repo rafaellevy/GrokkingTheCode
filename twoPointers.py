@@ -154,3 +154,20 @@ def findPair(arr, target, idx):
 print("triplets smaller than target")
 print(tripletSumSmallerThanTarget([-1, 0, 2, 3], 3))
 print(tripletSumSmallerThanTarget([-1, 4, 2, 1, 3], 5))
+
+
+def findProductSmallerThanTarget(arr, target):
+    subArrays = []
+    limit = len(arr) - 1
+
+    for i in range(len(arr)):
+        left = i + 1
+        if arr[i] * 1 < target:
+            subArrays.append([arr[i]])
+        if i != limit and arr[i] * arr[left] < target:
+            subArrays.append([arr[i],arr[left]])
+    return subArrays
+        
+print("find product smaller than target")
+print(findProductSmallerThanTarget([2, 5, 3, 10], 30))
+print(findProductSmallerThanTarget([8, 2, 6, 5], 50))
