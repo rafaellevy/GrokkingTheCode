@@ -1,5 +1,4 @@
-from turtle import left
-
+from collections import deque
 
 def findTwoIndices(arr, target):
     leftP = 0
@@ -171,3 +170,27 @@ def findProductSmallerThanTarget(arr, target):
 print("find product smaller than target")
 print(findProductSmallerThanTarget([2, 5, 3, 10], 30))
 print(findProductSmallerThanTarget([8, 2, 6, 5], 50))
+
+
+# same problem using sliding window
+def findProductSmallerThanTargetUsingSliding(arr, target):
+    product = 1
+    result = []
+    windowStart = 0
+    
+    for windowEnd in range(len(arr)):
+        product *= arr[windowEnd]
+        while product >= target and windowStart < len(arr):
+            product /= arr[windowStart]
+            windowStart += 1
+
+        tempList = deque()
+        for i in range(windowEnd, windowStart - 1, - 1):
+            tempList.appendleft(arr[i])
+            result.append(list(tempList))
+
+    return result
+
+print("Using Sliding")
+print(findProductSmallerThanTargetUsingSliding([2, 5, 3, 10], 30))
+print(findProductSmallerThanTargetUsingSliding([8, 2, 6, 5], 50))
