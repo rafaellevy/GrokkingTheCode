@@ -1,4 +1,6 @@
 from collections import deque
+from turtle import right
+from xmlrpc.client import Boolean
 
 def findTwoIndices(arr, target):
     leftP = 0
@@ -194,3 +196,33 @@ def findProductSmallerThanTargetUsingSliding(arr, target):
 print("Using Sliding")
 print(findProductSmallerThanTargetUsingSliding([2, 5, 3, 10], 30))
 print(findProductSmallerThanTargetUsingSliding([8, 2, 6, 5], 50))
+
+
+def dutchNationalFlag(arr):
+    left = 0
+    mid = left + 1
+    right = len(arr) - 1
+    isCorrect = False
+
+
+    while True:
+        isCorrect = False
+        while not isCorrect:
+            if arr[mid] == 1:
+                mid += 1
+                if mid > right:
+                    return arr
+            if arr[right] == 2:
+                right -= 1
+            if arr[left] == 0:
+                left += 1
+            if arr[mid] != 1 and arr[right] != 2 and arr[left] != 1:
+                isCorrect = True
+            
+
+
+
+
+        if mid > right:
+            break
+        
