@@ -199,30 +199,27 @@ print(findProductSmallerThanTargetUsingSliding([8, 2, 6, 5], 50))
 
 
 def dutchNationalFlag(arr):
-    left = 0
-    mid = left + 1
-    right = len(arr) - 1
-    isCorrect = False
+    leftIdx = 0
+    midIdx = 0
+    rightIdx = len(arr) - 1
 
+    while rightIdx >= midIdx:
+        if arr[midIdx] == 0:
+            swap(midIdx, leftIdx, arr)
+            midIdx += 1
+            leftIdx += 1
+        elif arr[midIdx] == 2:
+            swap(midIdx,rightIdx, arr)
+            rightIdx -= 1
+        else:
+            midIdx += 1
 
-    while True:
-        isCorrect = False
-        while not isCorrect:
-            if arr[mid] == 1:
-                mid += 1
-                if mid > right:
-                    return arr
-            if arr[right] == 2:
-                right -= 1
-            if arr[left] == 0:
-                left += 1
-            if arr[mid] != 1 and arr[right] != 2 and arr[left] != 1:
-                isCorrect = True
-            
+    return arr
 
-
-
-
-        if mid > right:
-            break
         
+def swap(i, j, arr):
+    arr[i],arr[j] = arr[j],arr[i]
+
+print("dutch national flag")
+print(dutchNationalFlag([1, 0, 2, 1, 0]))
+print(dutchNationalFlag([2, 2, 0, 1, 2, 0]))
