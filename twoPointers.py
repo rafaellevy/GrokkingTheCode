@@ -1,5 +1,5 @@
 from collections import deque
-from turtle import right
+from turtle import left, right
 from xmlrpc.client import Boolean
 
 def findTwoIndices(arr, target):
@@ -223,3 +223,45 @@ def swap(i, j, arr):
 print("dutch national flag")
 print(dutchNationalFlag([1, 0, 2, 1, 0]))
 print(dutchNationalFlag([2, 2, 0, 1, 2, 0]))
+
+
+def quadrupleSumtoTarget(arr, target):
+    output = set()
+    for i in range(len(arr) - 4 + 1):
+        p1 = i
+        p2 = p1 + 1
+        p3 = p2 + 1
+        p4 = p3 + 1
+
+        while True:
+            sum = arr[p1] + arr[p2] + arr[p3] + arr[p4]
+            if sum > target:
+                if p1 > 0:
+                    p1 -= 1
+                elif p2 > 1:
+                    p2 -= 1
+                elif p3 > 2:
+                    p3 -= 1
+                elif p4 > 3:
+                    p4 -= 1
+                else:
+                    break
+            elif sum < target:
+                if p4 < len(arr) - 1:
+                    p4 += 1
+                elif p3 < len(arr) - 2:
+                    p3 += 1
+                elif p2 < len(arr) - 3:
+                    p2 += 1
+                elif p1 < len(arr) - 4:
+                    p1 += 1
+                else:
+                    break
+            elif sum == target:
+                output.add([arr[p1], arr[p2], arr[p3] , arr[p4]])
+                break
+    return list(output)
+
+
+
+
