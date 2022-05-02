@@ -226,6 +226,7 @@ print(dutchNationalFlag([2, 2, 0, 1, 2, 0]))
 
 
 def quadrupleSumtoTarget(arr, target):
+    arr.sort()
     output = set()
     for i in range(len(arr) - 4 + 1):
         p1 = i
@@ -235,6 +236,7 @@ def quadrupleSumtoTarget(arr, target):
 
         while True:
             sum = arr[p1] + arr[p2] + arr[p3] + arr[p4]
+            print(sum)
             if sum > target:
                 if p1 > 0:
                     p1 -= 1
@@ -258,10 +260,14 @@ def quadrupleSumtoTarget(arr, target):
                 else:
                     break
             elif sum == target:
-                output.add([arr[p1], arr[p2], arr[p3] , arr[p4]])
+                print(sum)
+                output.add((arr[p1], arr[p2], arr[p3] , arr[p4]))
                 break
     return list(output)
 
+print("quadrupleSum")
+print(quadrupleSumtoTarget([4, 1, 2, -1, 1, -3], 1))
+print(quadrupleSumtoTarget([2, 0, -1, 1, -2, 2], 2))
 
 
 
