@@ -270,4 +270,45 @@ print(quadrupleSumtoTarget([4, 1, 2, -1, 1, -3], 1))
 print(quadrupleSumtoTarget([2, 0, -1, 1, -2, 2], 2))
 
 
+def twoStringsBackspace(str1,str2):
+    p1 = len(str1) - 1
+    p2 = len(str2) - 1
+    currentStr1 = ""
+    currentStr2 = ""
+    count1 = 0
+    count2 = 0
 
+    for char in str1:
+        if char == "#":
+            count1 += 2
+
+    for char in str2:
+        if char == "#":
+            count2 += 2
+
+    for i in range(len(str1) - 1 - count1 , -1,-1):
+        if str1[p1] == "#":
+            p1 -= 2
+        elif str1[p1] == "#" and p1 == 1:
+            break
+        else:
+            currentStr1 = str1[p1] + currentStr1
+        p1 -= 1
+
+
+    for i in range(len(str2) - 1 - count2, -1,-1):
+        if str2[p2] == "#":
+            p2 -= 2
+            currentStr2 = str2[p2] + currentStr2
+        elif str2[p2] == "#" and p2 == 1:
+            break
+        else:
+            currentStr2 = str2[p2] + currentStr2
+        p2 -= 1
+        
+    print(currentStr1)
+    print(currentStr2)
+    return currentStr1 == currentStr2
+
+
+print(twoStringsBackspace("xywrrmp","xywrrmu#p"))
