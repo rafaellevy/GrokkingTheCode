@@ -312,3 +312,8 @@ def twoStringsBackspace(str1,str2):
 
 
 print(twoStringsBackspace("xywrrmp","xywrrmu#p"))
+print(twoStringsBackspace("xp#","xyz##"))
+print(twoStringsBackspace("xy#z","xyz#"))
+print(twoStringsBackspace("xy#z","xzz#"))
+
+
