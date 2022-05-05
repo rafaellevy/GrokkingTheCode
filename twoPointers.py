@@ -310,8 +310,31 @@ print(twoStringsBackspace("xy#z","xyz#"))
 print(twoStringsBackspace("xp#","xyz##"))
 print(twoStringsBackspace("xywrrmp","xywrrmu#p"))
 
+def minimumWindowSort(arr):
+    sortedArr = sorted(arr)
+    uL = 0
+    uR = len(arr) - 1
+    sL = 0
+    sR = len(arr) - 1
 
-              
+    while True:
+        if arr[uL] != sortedArr[sL] and arr[uR] != sortedArr[sR]:
+            return uR - uL + 1
+        if arr[uL] == sortedArr[sL]:
+            uL += 1
+            sL += 1
+        if arr[uR] == sortedArr[sR]:
+            uR -= 1
+            sR -= 1
+        if uL == uR:
+            return 0
+
+print("minimumWindowSort")
+print(minimumWindowSort([1, 2, 5, 3, 7, 10, 9, 12]))
+print(minimumWindowSort([1, 3, 2, 0, -1, 7, 10]))
+print(minimumWindowSort([1, 2, 3]))
+print(minimumWindowSort([3, 2, 1]))
+
 
             
         
