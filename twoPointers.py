@@ -336,5 +336,54 @@ print(minimumWindowSort([1, 2, 3]))
 print(minimumWindowSort([3, 2, 1]))
 
 
+
+def minimumWindowSort2(arr):
+    low = 0
+    high = len(arr) - 1
+
+    while low < len(arr) - 1 and arr[low] <= arr[low + 1]:
+        low += 1
+
+    while high > 0 and arr[high] >= arr[high - 1]:
+        high -= 1
+    
+    if low == len(arr) - 1:
+        return 0
+
+    minimum = float("inf")
+    maximum = float("-inf")
+
+    for num in range(low, high + 1):
+        minimum = min(minimum, arr[num])
+        maximum = max(maximum,arr[num])
+
+    while True:
+        if low > 0 and minimum < arr[low - 1]:
+            low -= 1
+        elif low == 0:
+            break
+        else:
+            break
+
+    while True:
+        if high < len(arr) - 1 and maximum > arr[high + 1]:
+            high += 1
+        elif high == len(arr) -1:
+            break
+        else:
+            break
+
+    return high - low + 1
+
+print("minimumWindowSort 2")
+print(minimumWindowSort2([1, 2, 5, 3, 7, 10, 9, 12]))
+print(minimumWindowSort2([1, 3, 2, 0, -1, 7, 10]))
+print(minimumWindowSort2([1, 2, 3]))
+print(minimumWindowSort2([3, 2, 1]))   
+    
+    
+    
+
+
             
         
