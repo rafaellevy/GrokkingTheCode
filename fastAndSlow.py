@@ -1,3 +1,6 @@
+from ctypes import pointer
+
+
 class Node:
   def __init__(self, value, next=None):
     self.value = value
@@ -169,3 +172,84 @@ def main():
 
 
 main()
+
+
+# Palindrome LinkedList
+
+'''
+Given the head of a Singly LinkedList, write a 
+method to check if the LinkedList is a palindrome or not.
+
+Your algorithm should use constant space and the input 
+LinkedList should be in the original form once the algorithm is finished. 
+The algorithm should have O(N) time complexity where 'N' is the number of nodes in the LinkedList.
+
+Example 1:
+
+Input: 2 -> 4 -> 6 -> 4 -> 2 -> null
+Output: true
+Example 2:
+
+Input: 2 -> 4 -> 6 -> 4 -> 2 -> 2 -> null
+Output: false
+'''
+
+def is_palindromic_linked_list(head):
+  middleNode = find_middle_of_linked_list(head)
+  reversedListHead = reverseLinkedList(middleNode)
+  right = reversedListHead
+  left = head
+
+  while left != middleNode:
+    if left.value == right.value:
+      left = left.next
+      right = right.next
+    else:
+      printLinkedList(reversedListHead)
+      printLinkedList(head)
+      reverseLinkedList(reversedListHead)
+      printLinkedList(head)
+      return False
+  
+  printLinkedList(reversedListHead)
+  printLinkedList(head)
+  reverseLinkedList(reversedListHead)
+  printLinkedList(head)
+  
+  return True
+
+def reverseLinkedList(node):
+  p0 = None
+  p1 = node
+  
+  while p1 != None:
+    p2 = p1.next
+    p1.next = p0
+    p0 = p1
+    p1 = p2
+  #return the head
+  return p0
+
+
+def printLinkedList(head):
+  while head:
+    print(f"{head.value}->",end=" ")
+    head = head.next
+  print()
+  
+
+def main():
+  head = Node(2)
+  head.next = Node(4)
+  head.next.next = Node(6)
+  head.next.next.next = Node(4)
+  head.next.next.next.next = Node(2)
+
+  print("Is palindrome: " + str(is_palindromic_linked_list(head)))
+
+  head.next.next.next.next.next = Node(2)
+  print("Is palindrome: " + str(is_palindromic_linked_list(head)))
+
+
+main()
+
