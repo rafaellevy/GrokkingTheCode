@@ -355,13 +355,16 @@ def circular_array_loop_exists(arr):
     while True:
       if arr[current] > 0 and arr[start] > 0:
         if current + arr[current] > len(arr) - 1:
-          excess = current + arr[current] - len(arr) - 1
-          current = excess - 1
+          difference = current + arr[current] - len(arr) - 1
+          # because we array starts at 0
+          current = difference - 1
         else:
           current += arr[current]
   
       elif arr[current] < 0 and arr[start] < 0:
         current += arr[current]
+        if current < 0:
+          current = len(arr) + current
 
       else:
         break
