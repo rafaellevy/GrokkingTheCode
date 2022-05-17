@@ -348,7 +348,6 @@ Explanation: The array does not have any cycle.
 def circular_array_loop_exists(arr):
   current = 0
   start = 0
-  oneDirection = True
 
   for i in range(len(arr)):
     start, current  = i, i
