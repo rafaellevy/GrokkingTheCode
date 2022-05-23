@@ -87,3 +87,98 @@ def main():
 
 
 main()
+
+# Intervals Intersection
+
+'''
+Problem Statement #
+Given two lists of intervals, find the intersection of these two lists. 
+Each list consists of disjoint intervals sorted on their start time.
+
+Example 1:
+
+Input: arr1=[[1, 3], [5, 6], [7, 9]], arr2=[[2, 3], [5, 7]]
+Output: [2, 3], [5, 6], [7, 7]
+Explanation: The output list contains the common intervals between the two lists.
+
+Example 2:
+
+Input: arr1=[[1, 3], [5, 7], [9, 12]], arr2=[[5, 10]]
+Output: [5, 7], [9, 10]
+Explanation: The output list contains the common intervals between the two lists.
+
+
+
+'''
+
+
+def merge(intervals_a, intervals_b):
+  result = []
+  for intervalA in intervals_a:
+    for intervalB in intervals_b:
+      if intervalA[0] < intervalB[0]:
+        small = intervalA
+        large = intervalB
+        if small[1] >= large[0]:
+          result.append([max(large[0],small[0]),min(large[1],small[1])])
+      else:
+        small = intervalB
+        large = intervalA
+        if small[1] >= large[0]:
+          result.append([max(large[0],small[0]),min(large[1],small[1])])
+  
+  # TODO: Write your code here
+  return result
+
+
+def main():
+  print("Intervals Intersection: " + str(merge([[1, 3], [5, 6], [7, 9]], [[2, 3], [5, 7]])))
+  print("Intervals Intersection: " + str(merge([[1, 3], [5, 7], [9, 12]], [[5, 10]])))
+
+
+main()
+
+# Conflicting Appointments (medium)
+
+'''
+Problem Statement #
+Given an array of intervals representing N appointments, find out if a person can attend all the appointments.
+
+Example 1:
+
+Appointments: [[1,4], [2,5], [7,9]]
+Output: false
+Explanation: Since [1,4] and [2,5] overlap, a person cannot attend both of these appointments.
+Example 2:
+
+Appointments: [[6,7], [2,4], [8,12]]
+Output: true
+Explanation: None of the appointments overlap, therefore a person can attend all of them.
+Example 3:
+
+Appointments: [[4,5], [2,3], [3,6]]
+Output: false
+Explanation: Since [4,5] and [3,6] overlap, a person cannot attend both of these appointments.
+
+'''
+
+def can_attend_all_appointments(intervals):
+  intervals.sort(key=lambda x: x[0])
+
+  for i in range(len(intervals) - 1):
+    if intervals[i][1] > intervals[i + 1][0]:
+      return False
+      
+  return True 
+
+
+def main():
+  print("Can attend all appointments: " + str(can_attend_all_appointments([[1, 4], [2, 5], [7, 9]])))
+  print("Can attend all appointments: " + str(can_attend_all_appointments([[6, 7], [2, 4], [8, 12]])))
+  print("Can attend all appointments: " + str(can_attend_all_appointments([[4, 5], [2, 3], [3, 6]])))
+
+
+main()
+
+
+
