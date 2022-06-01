@@ -38,3 +38,39 @@ def main():
 
 
 main()
+
+# Find the Missing Number (easy)
+
+'''
+We are given an array containing n distinct numbers taken from the range 0 to n. Since the array has only n numbers out of the total n+1 numbers, find the missing number.
+
+Example 1:
+
+Input: [4, 0, 3, 1]
+Output: 2
+Example 2:
+
+Input: [8, 3, 5, 2, 4, 6, 0, 1]
+Output: 7
+'''
+
+def find_missing_number(nums):
+    maximum = len(nums)+1
+
+    auxArray = [None] * maximum
+
+    for i in range(len(nums)):
+        auxArray[nums[i]] = nums[i]
+    
+    for j in range(len(auxArray)):
+        if auxArray[j] == None:
+            return j
+
+
+
+def main():
+  print(find_missing_number([4, 0, 3, 1]))
+  print(find_missing_number([8, 3, 5, 2, 4, 6, 0, 1]))
+
+
+main()
