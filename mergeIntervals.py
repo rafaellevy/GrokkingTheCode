@@ -410,13 +410,6 @@ def find_employee_free_time(schedule):
     return result 
       
 
-
-
-
-
-
-
-
 def main():
 
     input = [[Interval(1, 3), Interval(5, 6)], [
