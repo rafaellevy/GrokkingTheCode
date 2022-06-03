@@ -228,3 +228,96 @@ def main():
 
 
 main()
+
+# Find all Duplicate Numbers
+
+'''
+We are given an unsorted array containing n numbers taken from the range 1 to n.
+ The array has some numbers appearing twice, 
+ find all these duplicate numbers using constant space.
+
+Example 1:
+
+Input: [3, 4, 4, 5, 5]
+Output: [4, 5]
+Example 2:
+
+Input: [5, 4, 7, 2, 3, 5, 3]
+Output: [3, 5]
+
+'''
+
+def find_all_duplicates(nums):
+    i = 0
+    output = []
+    while i < len(nums):
+        if nums[i] == i + 1:
+            i += 1
+        elif nums[i] != i + 1:
+            value = nums[i]
+            if nums[value - 1] != nums[i]:
+                swap(i,value - 1,nums)
+            else:
+                output.append(value)
+                i += 1
+
+    return output
+
+def swap(x,y,arr):
+    arr[x], arr[y] = arr[y], arr[x]
+
+print(find_all_duplicates([3, 4, 4, 5, 5]))
+
+
+# Find the Corrupt Pair (easy)#
+'''
+We are given an unsorted array containing n numbers taken from the range 1 to n. 
+The array originally contained all the numbers from 1 to n, but due to a data error, 
+one of the numbers got duplicated which also resulted in one number going missing. 
+Find both these numbers.
+
+Example 1:
+
+Input: [3, 1, 2, 5, 2]
+Output: [2, 4]
+Explanation: '2' is duplicated and '4' is missing.
+Example 2:
+
+Input: [3, 1, 2, 3, 6, 4]
+Output: [3, 5]
+Explanation: '3' is duplicated and '5' is missing.
+'''
+print("hello")
+def find_corrupt_numbers(nums):
+    output = []
+    i = 0
+    while i < len(nums):
+        if nums[i] != i + 1:
+            value = nums[i]
+            if nums[value - 1] == value:
+                if value not in output:
+                    output.append(value)
+                i += 1
+            else:
+                swap(i,value - 1, nums)
+        else:
+            i += 1
+    for i in range(len(nums)):
+        if nums[i] != i + 1:
+            output.append(i + 1)
+            
+    return output
+        
+
+    
+def swap(x,y,arr):
+    arr[x], arr[y] = arr[y], arr[x]
+
+
+            
+def main():
+  print(find_corrupt_numbers([3, 1, 2, 5, 2]))
+  print(find_corrupt_numbers([3, 1, 2, 3, 6, 4]))
+
+
+main()
