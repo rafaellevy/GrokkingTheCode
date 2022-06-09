@@ -376,3 +376,83 @@ def main():
 
 
 main()
+
+
+# Find the First K Missing Positive Numbers (hard)
+
+'''
+Given an unsorted array containing numbers and a number k, 
+find the first k missing positive numbers in the array.
+
+Example 1:
+
+Input: [3, -1, 4, 5, 5], k=3
+Output: [1, 2, 6]
+Explanation: The smallest missing positive numbers are 1, 2 and 6.
+Example 2:
+
+Input: [2, 3, 4], k=3
+Output: [1, 5, 6]
+Explanation: The smallest missing positive numbers are 1, 5 and 6.
+Example 3:
+
+Input: [-2, -3, 4], k=2
+Output: [1, 2]
+Explanation: The smallest missing positive numbers are 1 and 2.
+
+'''
+
+
+print("hard")
+def swap(x,y,arr):
+    arr[x], arr[y] = arr[y], arr[x]
+
+def find_first_k_missing_positive(nums, k):
+    i = 0
+    output = []
+    while i < len(nums):
+        value = nums[i]
+        if value != i + 1:
+            if value <= 0:
+                i +=1
+            elif value > len(nums):
+                i += 1
+            elif value == nums[value - 1]:
+                i += 1
+            else:
+                swap(i, value - 1, nums)
+        else:
+            i += 1
+    print(nums)
+
+    pointer = 0
+    previousHigh = 0
+    while len(output) < k:
+        value = nums[pointer]
+        if value < pointer + 1:
+            output.append(pointer + 1)
+            previousHigh = pointer + 1
+            pointer += 1
+        elif value == pointer + 1:
+            pointer += 1
+            previousHigh = pointer + 1
+        elif value > pointer + 1:
+            while previousHigh < value -1 and len(output) < k:
+                previousHigh += 1
+                output.append(previousHigh)
+            pointer += 1
+            previousHigh = value
+    return output
+
+def main():
+  print(find_first_k_missing_positive([3, -1, 4, 5, 5], 3))
+  print(find_first_k_missing_positive([2, 3, 4], 3))
+  print(find_first_k_missing_positive([-2, -3, 4], 2))
+
+
+main()
+            
+
+
+
+    
