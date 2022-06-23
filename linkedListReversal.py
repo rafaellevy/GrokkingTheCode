@@ -61,7 +61,6 @@ reverse the LinkedList from position p to q.
 
 '''
 
-
 def reverse_sub_list(head, p, q):
   # TODO: Write your code here
 
@@ -70,7 +69,11 @@ def reverse_sub_list(head, p, q):
   while i < p - 1:
     leftNode = leftNode.next
     i += 1
-  startNode = leftNode.next
+  
+  if p == 1:
+    startNode = leftNode
+  else:
+    startNode = leftNode.next
 
 
   endNode = head
@@ -78,7 +81,11 @@ def reverse_sub_list(head, p, q):
   while j < q:
     endNode = endNode.next
     j += 1
-  rightNode = endNode.next
+
+  if endNode.next is None:
+    rightNode = endNode
+  else:
+    rightNode = endNode.next
 
   
   p1 = None
@@ -88,10 +95,18 @@ def reverse_sub_list(head, p, q):
     p2.next = p1
     p1 = p2
     p2 = p3
-  leftNode.next = endNode
-  startNode.next = rightNode
-  
-  return head
+
+  if startNode != leftNode:
+    leftNode.next = endNode
+  if endNode != rightNode:
+    # the start of the sublist - when reversed, this is the end of the sublist.  
+    # We need to connect the end with the right node
+    startNode.next = rightNode
+
+  if p == 1:
+    return p1
+  else:
+    return head
 
 
 def main():
@@ -109,3 +124,4 @@ def main():
 
 
 main()
+
