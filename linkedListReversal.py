@@ -8,6 +8,7 @@ Write a function to return the new head of the reversed LinkedList.
 
 
 from __future__ import print_function
+from unittest import skip
 
 
 class Node:
@@ -196,7 +197,7 @@ reverse every alternating k sized sub-list starting from the head.
 If, in the end, you are left with a sub-list with less than k elements, reverse it too.
 '''
 
-def reverseList(head, previous,k,other):
+def reverseList(head, previous,k,skip):
   p1 = None
   p2 = head
   i = 1
@@ -209,22 +210,35 @@ def reverseList(head, previous,k,other):
     return p2, previous
 
   i = 1
-  while i < k and p2 != None:
+  while i <= k and p2 != None:
     p3 = p2.next
     p2.next = p1
     p1 = p2
     p2 = p3
     i += 1
+  # connect the left side of the linkedlist to reversed sublist if exists
   if previous != None:
     previous.next = p1
-  return p3, p1
+  #connect the reversed sublist to right side of the linked list
+  head.next = p3
+  if not skip:
+    skip = True
+  # head is the last node of the reversed linkedlist and p3 is the head of the next sublist
+  return head, p3, skip
   
 
 
 
 def reverse_alternate_k_elements(head, k):
-  
-  return head
+  skip = False
+  current = head
+  previous = None
+
+  while current:
+    previous, current, skip =  reverseList(previous,current,skip)
+
+
+  return 
 
 
 def main():
@@ -244,5 +258,5 @@ def main():
   result.print_list()
 
 
-main()
+#main()
 
