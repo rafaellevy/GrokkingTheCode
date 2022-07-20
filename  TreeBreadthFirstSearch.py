@@ -316,15 +316,15 @@ class TreeNode:
         while nextLevelRoot:
             current = nextLevelRoot
             nextLevelRoot = None
-        while current:
-            print(str(current.val) + " ", end='')
-        if not nextLevelRoot:
-            if current.left:
-                nextLevelRoot = current.left
-            elif current.right:
-                nextLevelRoot = current.right
-        current = current.next
-        print()
+            while current:
+                print(str(current.val) + " ", end='')
+                if not nextLevelRoot:
+                    if current.left:
+                        nextLevelRoot = current.left
+                    elif current.right:
+                        nextLevelRoot = current.right
+                current = current.next
+            print()
 
 
 def connect_level_order_siblings(root):
