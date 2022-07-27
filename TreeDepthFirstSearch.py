@@ -112,17 +112,21 @@ def find_sum_of_path_numbers(root):
 
 def find_sum_of_path_numbers_helper(root,currentNumber, sum):
     if root == None:
-        return 
+        return 0
     
     currentNumber += str(root.val)
     
     if root.left == None and root.right == None:
-        sum += int(currentNumber) 
+        sum += int(currentNumber)
+        return sum
     
-    find_sum_of_path_numbers_helper(root.left, currentNumber,sum)
-    find_sum_of_path_numbers_helper(root.right, currentNumber,sum)
+    # not necessary to delete the last letter from the string
+    # currentNumber = currentNumber[:len(currentNumber)-1]
     
-    currentNumber = currentNumber[:len(currentNumber)-1]
+    return find_sum_of_path_numbers_helper(root.left, currentNumber,sum) + find_sum_of_path_numbers_helper(root.right, currentNumber,sum)
+        
+    
+    
     
     
     
