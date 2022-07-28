@@ -153,8 +153,22 @@ class TreeNode:
 
 
 def find_path(root, sequence):
-  # TODO: Write your code here
-  return False  
+  
+  return find_path_helper(root,"",sequence)
+
+def find_path_helper(root,currentString, sequence):
+    if root == None:
+        return False
+    
+    currentString += str(root.val)
+    
+    if root.left == None and root.right == None:
+        currentSequence = list(currentString)
+        currentSequence = [int(x) for x in currentSequence]
+        print(currentSequence)
+        return currentSequence == sequence
+    
+    return find_path_helper(root.left, currentString,sequence) or find_path_helper(root.right, currentString,sequence)  
 
 def main():
 
