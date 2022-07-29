@@ -184,3 +184,66 @@ def main():
 
 
 main()
+
+
+
+# Count Paths for a Sum
+
+
+'''
+Given a binary tree and a number S, 
+find all paths in the tree such that the sum of all the node values of each path equals S. 
+Please note that the paths can start or end at any node but all paths must follow direction 
+from parent to child (top to bottom).
+
+'''
+
+class TreeNode:
+  def __init__(self, val, left=None, right=None):
+    self.val = val
+    self.left = left
+    self.right = right
+
+
+def count_paths(root, S):
+  # TODO: Write your code here
+  paths = []
+  sum = 0
+  
+  return count_paths_helper(root, [], S, paths, sum)
+
+def count_paths_helper(root,currentPath, S, paths, sum):
+    
+    if root == None:
+        return 
+    
+    currentPath.append(root.val)
+    sum += root.val
+    
+    
+    #if currentNumber == str(S):
+        #paths.append()
+        
+    if sum == S:
+        paths.append(currentPath)
+        
+    currentPath = currentPath[1:]
+    
+    count_paths_helper(root.left, currentPath, S, paths, sum)
+    count_paths_helper(root.right, currentPath, S, paths, sum)
+    
+    print(paths)
+    return len(paths)
+        
+def main():
+  root = TreeNode(12)
+  root.left = TreeNode(7)
+  root.right = TreeNode(1)
+  root.left.left = TreeNode(4)
+  root.right.left = TreeNode(10)
+  root.right.right = TreeNode(5)
+  # 11
+  print("Tree has paths: " + str(count_paths(root, 23)))
+
+
+main()
