@@ -206,34 +206,33 @@ class TreeNode:
 
 
 def count_paths(root, S):
-  # TODO: Write your code here
-  paths = []
-  sum = 0
-  
-  return count_paths_helper(root, [], S, paths, sum)
+  return count_paths_recursive(root, S, [])
 
-def count_paths_helper(root,currentPath, S, paths, sum):
-    
-    if root == None:
-        return 
-    
-    currentPath.append(root.val)
-    sum += root.val
-    
-    
-    #if currentNumber == str(S):
-        #paths.append()
-        
-    if sum == S:
-        paths.append(currentPath)
-        
-    currentPath = currentPath[1:]
-    
-    count_paths_helper(root.left, currentPath, S, paths, sum)
-    count_paths_helper(root.right, currentPath, S, paths, sum)
-    
-    print(paths)
-    return len(paths)
+
+def count_paths_recursive(currentNode, S, currentPath):
+  if currentNode is None:
+    return 0
+
+  # add the current node to the path
+  currentPath.append(currentNode.val)
+  pathCount, pathSum = 0, 0
+  # find the sums of all sub-paths in the current path list
+  for i in range(len(currentPath)-1, -1, -1):
+    pathSum += currentPath[i]
+    # if the sum of any sub-path is equal to 'S' we increment our path count.
+    if pathSum == S:
+      pathCount += 1
+
+  # traverse the left sub-tree
+  pathCount += count_paths_recursive(currentNode.left, S, currentPath)
+  # traverse the right sub-tree
+  pathCount += count_paths_recursive(currentNode.right, S, currentPath)
+
+  # remove the current node from the path to backtrack
+  # we need to remove the current node while we are going up the recursive call stack
+  del currentPath[-1]
+
+  return pathCount
         
 def main():
   root = TreeNode(12)
