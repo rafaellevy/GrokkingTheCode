@@ -181,3 +181,50 @@ def main():
 
 
 main()
+
+# Maximize Capital (hard)
+
+
+'''
+Given a set of investment projects with their respective profits, 
+we need to find the most profitable projects. 
+We are given an initial capital and are allowed to invest only in a fixed number of projects.
+Our goal is to choose projects that give us the maximum profit.
+Write a function that returns the maximum total capital after selecting 
+most profitable projects.
+We can start an investment project only when we have the required capital. 
+Once a project is selected, we can assume that its profit has become our capital.
+'''
+
+
+def find_maximum_capital(capital, profits, numberOfProjects, initialCapital):
+    capitalMinHeap = []
+    profitMaxHeap = []
+
+    for i in range(len(capital)):
+        heappush(capitalMinHeap, (capital[i], i))
+
+    availableCapital = initialCapital
+
+    for i in range(numberOfProjects):
+        while capitalMinHeap and capitalMinHeap[0][0] <= availableCapital:
+            project, ind = heappop(capitalMinHeap)
+            heappush(profitMaxHeap, (-profits[ind]))
+
+        if not profitMaxHeap:
+            break
+
+        availableCapital += -heappop(profitMaxHeap)
+
+    return availableCapital
+
+
+def main():
+
+    print("Maximum capital: " +
+          str(find_maximum_capital([0, 1, 2], [1, 2, 3], 2, 1)))
+    print("Maximum capital: " +
+          str(find_maximum_capital([0, 1, 2, 3], [1, 2, 3, 5], 3, 0)))
+
+
+main()
