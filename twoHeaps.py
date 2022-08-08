@@ -99,23 +99,39 @@ class SlidingWindowMedian:
                 self.result.append(self.find_median(
                     nums[windowStart:windowEnd + 1]))
                 # TODO: remove the start number from min or max heap
+                self.remove(windowStart, nums)
                 windowStart += 1
 
             windowEnd += 1
-            self.insert_num(nums[windowEnd])
+            if windowEnd < len(nums):
+                self.insert_num(nums[windowEnd])
 
         return self.result
 
-    def insert_num(self, num):
-
-        # TODO: Write your code here
-        if len(self.minHeap) == 0 and len(self.maxHeap) == 0:
-            heappush(self.minHeap, num)
-        elif num > self.minHeap[0]:
-            heappush(self.minHeap, num)
+    # we are removing the number that will be out of the window once we slide the window to the right
+    def remove(self, idx, arr):
+        # num to remove
+        num = arr[idx]
+        # find which heap it must be.
+        if num >= self.minHeap[0]:
+            # find the index where num is
+            heap_idx = self.minHeap.index(num)
+            # swap it with the last index, pop the last index off
+            self.minHeap[heap_idx] = self.minHeap[-1]
+            self.minHeap.pop()
+            # heapify the minHeap
+            heapify(self.minHeap)
         else:
-            heappush(self.maxHeap, -num)
+            heap_idx = self.maxHeap.index(-num)
+            self.maxHeap[heap_idx] = self.maxHeap[-1]
+            self.maxHeap.pop()
+            heapify(self.maxHeap)
 
+         # rebalance heap
+        self.rebalance_Heap()
+
+    def rebalance_Heap(self):
+        # Since we removed one from the max or min heap, we may need to rebalance the heaps
         if len(self.minHeap) > len(self.maxHeap) + 1:
             # rebalancing
             topMinHeap = heappop(self.minHeap)
@@ -127,10 +143,21 @@ class SlidingWindowMedian:
             # max heap is a min heap ( add - sign to go back to positive)
             heappush(self.minHeap, -topMaxHeap)
 
+    def insert_num(self, num):
+
+        # TODO: Write your code here
+        if len(self.minHeap) == 0 and len(self.maxHeap) == 0:
+            heappush(self.minHeap, num)
+        elif num > self.minHeap[0]:
+            heappush(self.minHeap, num)
+        else:
+            heappush(self.maxHeap, -num)
+
+        # rebalance heap
+        self.rebalance_Heap()
+
     def find_median(self, window):
 
-        print(self.minHeap)
-        print(self.maxHeap)
         # TODO: Write your code here
         if len(self.minHeap) > len(self.maxHeap):
             return self.minHeap[0]
