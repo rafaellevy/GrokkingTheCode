@@ -1,8 +1,13 @@
+from collections import deque
 # Subsets
 
 '''
 Given a set with distinct elements, find all of its distinct subsets.
 '''
+
+
+from itertools import permutations
+from operator import length_hint
 
 
 def find_subsets(nums):
@@ -81,6 +86,24 @@ Permutation is defined as the re-arranging of the elements of the set
 def find_permutations(nums):
     result = []
     # TODO: Write your code here
+    length_nums = len(nums)
+    permutations = deque()
+    permutations.append([])
+
+    for currentNumber in nums:
+        n = len(permutations)
+
+        for _ in range(n):
+            oldPermutation = permutations.popleft()
+
+            for j in range(len(oldPermutation)+1):
+                newPermutation = list(oldPermutation)
+                newPermutation.insert(j, currentNumber)
+                if len(newPermutation) == length_nums:
+                    result.append(newPermutation)
+                else:
+                    permutations.append(newPermutation)
+
     return result
 
 
