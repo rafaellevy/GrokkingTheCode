@@ -140,3 +140,34 @@ def main():
 
 
 main()
+
+# String Permutations by changing case
+
+'''
+Given a string, find all of its permutations 
+preserving the character sequence but changing case.
+'''
+
+
+def find_letter_case_string_permutations(input):
+    permutations = [input]
+
+    for i in range(len(input)):
+        if input[i].isalpha():
+            n = len(permutations)
+            for j in range(n):
+                characters = list(permutations[j])
+                characters[i] = characters[i].swapcase()
+                permutations.append("".join(characters))
+
+    return permutations
+
+
+def main():
+    print("String permutations are: " +
+          str(find_letter_case_string_permutations("ad52")))
+    print("String permutations are: " +
+          str(find_letter_case_string_permutations("ab7c")))
+
+
+main()
